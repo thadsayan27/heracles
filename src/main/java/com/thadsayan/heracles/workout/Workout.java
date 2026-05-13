@@ -4,6 +4,8 @@ import com.thadsayan.heracles.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -14,13 +16,14 @@ import lombok.*;
 public class Workout {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "workout_id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
+    private UUID id;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    private int workoutNum;
 
 }

@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -17,9 +18,9 @@ import java.util.List;
 public class WorkoutExercise {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "workout_exercise_id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
+    private UUID id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "workout_id", nullable = false)
@@ -35,4 +36,6 @@ public class WorkoutExercise {
             orphanRemoval = true
     )
     private List<WorkoutSet> sets = new ArrayList<>();
+
+    private int exerciseNum;
 }

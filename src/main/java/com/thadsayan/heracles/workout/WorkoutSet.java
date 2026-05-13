@@ -3,6 +3,8 @@ package com.thadsayan.heracles.workout;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -13,9 +15,9 @@ import lombok.*;
 public class WorkoutSet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "workout_set_id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
+    private UUID id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "workout_exercise_id", nullable = false)
@@ -25,7 +27,7 @@ public class WorkoutSet {
     @Column(nullable = false)
     private SetType type;
 
-    private int set;
+    private int setNum;
 
     private int weight;
 

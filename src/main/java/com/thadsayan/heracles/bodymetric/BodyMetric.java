@@ -29,4 +29,5 @@ public class BodyMetric {
 
     @Column(nullable = false)
     private int height;
+
 }
