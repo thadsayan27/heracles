@@ -33,4 +33,8 @@ public class User {
     @Column(nullable = false)
     private Sex sex;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
 }
