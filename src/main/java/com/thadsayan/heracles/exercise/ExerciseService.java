@@ -1,9 +1,10 @@
 package com.thadsayan.heracles.exercise;
 
 
+import com.thadsayan.heracles.exercise.dto.CreateExerciseRequest;
 import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
 import com.thadsayan.heracles.exercise.mapper.ExerciseMapper;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +12,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ExerciseService {
-    private ExerciseRepository exerciseRepository;
-    private ExerciseMapper exerciseMapper;
+    private final ExerciseRepository exerciseRepository;
+    private final ExerciseMapper exerciseMapper;
 
     public Optional<ExerciseDTO> getExerciseById(UUID id) {
         return exerciseRepository.findById(id)
@@ -25,9 +26,10 @@ public class ExerciseService {
         return exerciseMapper.toDTOList(exerciseRepository.findByName(name));
     }
 
-    public ExerciseDTO createExercise(ExerciseDTO dto) {
-        Exercise exercise = exerciseMapper.toEntity(dto);
-        Exercise saved = exerciseRepository.save(exercise);
-        return exerciseMapper.toDTO(saved);
+    public ExerciseDTO createExercise(CreateExerciseRequest createExerciseRequest){
+        Exercise exercise = exerciseMapper.toEntity(createExerciseRequest);
+        if(exerciseRepository.existsByNameIgnoreCase(exercise.getName()))
+            throw new IllegalArgumentException("Exercise with the same name already exists");
+        return exerciseMapper.toDTO(exerciseRepository.save(exercise));
     }
 }

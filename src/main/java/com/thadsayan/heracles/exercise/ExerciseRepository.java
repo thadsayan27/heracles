@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
     List<Exercise> findByName(String name);
     List<Exercise> findByPrimaryMuscleGroup(MuscleGroup primaryMuscleGroup);
+    boolean existsByNameIgnoreCase(String name);
 }

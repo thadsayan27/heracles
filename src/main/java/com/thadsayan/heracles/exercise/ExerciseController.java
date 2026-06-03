@@ -1,6 +1,9 @@
 package com.thadsayan.heracles.exercise;
 
+import com.thadsayan.heracles.exercise.dto.CreateExerciseRequest;
 import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -10,10 +13,11 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/exercises")
+@RequestMapping("/api/exercises")
+@RequiredArgsConstructor
 public class ExerciseController {
 
-    private ExerciseService exerciseService;
+    private final ExerciseService exerciseService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ExerciseDTO> getExerciseById(@PathVariable UUID id) {
@@ -31,12 +35,16 @@ public class ExerciseController {
     }
 
     @PostMapping
-    public ResponseEntity<ExerciseDTO> createExercise(@RequestBody ExerciseDTO dto) {
-        ExerciseDTO created = exerciseService.createExercise(dto);
+    public ResponseEntity<ExerciseDTO> createExercise(
+            @Valid @RequestBody CreateExerciseRequest createExerciseRequest) {
+
+        ExerciseDTO createdExercise = exerciseService.createExercise(createExerciseRequest);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(created.getId())
+                .buildAndExpand(createdExercise.getId())
                 .toUri();
-        return ResponseEntity.created(location).body(created);
+
+        return ResponseEntity.created(location)
+                .body(createdExercise);
     }
 }

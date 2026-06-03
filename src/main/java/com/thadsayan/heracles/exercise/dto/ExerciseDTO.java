@@ -1,9 +1,7 @@
 package com.thadsayan.heracles.exercise.dto;
 
 import com.thadsayan.heracles.exercise.MuscleGroup;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
