@@ -12,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "exercises")
+@Builder
 public class Exercise {
 
     @Id
