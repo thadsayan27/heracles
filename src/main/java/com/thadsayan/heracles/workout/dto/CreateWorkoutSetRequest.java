@@ -1,6 +1,6 @@
 package com.thadsayan.heracles.workout.dto;
 
-import com.thadsayan.heracles.workout.SetType;
+import com.thadsayan.heracles.workout.entity.SetType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

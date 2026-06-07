@@ -1,8 +1,8 @@
 package com.thadsayan.heracles.workout.mapper;
 
-import com.thadsayan.heracles.workout.Workout;
-import com.thadsayan.heracles.workout.WorkoutExercise;
-import com.thadsayan.heracles.workout.WorkoutSet;
+import com.thadsayan.heracles.workout.entity.Workout;
+import com.thadsayan.heracles.workout.entity.WorkoutExercise;
+import com.thadsayan.heracles.workout.entity.WorkoutSet;
 import com.thadsayan.heracles.workout.dto.*;
 import org.mapstruct.Mapper;
 
