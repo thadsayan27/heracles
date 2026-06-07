@@ -1,0 +1,2 @@
+ALTER TABLE workouts
+    ADD COLUMN name VARCHAR(20) NOT NULL DEFAULT 'Workout';

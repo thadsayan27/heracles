@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "workout_exercises")

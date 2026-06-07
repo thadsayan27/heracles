@@ -6,9 +6,7 @@ import lombok.*;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "workout_sets")
