@@ -1,6 +1,6 @@
 package com.thadsayan.heracles.workout.dto;
 
-import com.thadsayan.heracles.workout.entity.SetType;
+import com.thadsayan.heracles.workout.model.SetType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.workout.entity;
+package com.thadsayan.heracles.workout.model;
 
 public enum SetType {
     WARM_UP,

@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.workout.entity;
+package com.thadsayan.heracles.workout.model;
 
 import com.thadsayan.heracles.exercise.Exercise;
 import jakarta.persistence.*;
