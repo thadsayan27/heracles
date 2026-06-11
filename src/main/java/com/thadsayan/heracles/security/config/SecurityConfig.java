@@ -3,9 +3,6 @@ package com.thadsayan.heracles.security.config;
 import com.thadsayan.heracles.security.AuthenticationService;
 import com.thadsayan.heracles.security.filter.JwtAuthenticationFilter;
 import com.thadsayan.heracles.security.UserPrincipalService;
-import com.thadsayan.heracles.user.Role;
-import com.thadsayan.heracles.user.Sex;
-import com.thadsayan.heracles.user.User;
 import com.thadsayan.heracles.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +15,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.util.Date;
 
 @Configuration
 public class SecurityConfig {

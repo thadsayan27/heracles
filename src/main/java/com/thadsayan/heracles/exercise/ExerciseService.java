@@ -4,6 +4,7 @@ package com.thadsayan.heracles.exercise;
 import com.thadsayan.heracles.exercise.dto.CreateExerciseRequest;
 import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
 import com.thadsayan.heracles.exercise.mapper.ExerciseMapper;
+import com.thadsayan.heracles.exercise.model.Exercise;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

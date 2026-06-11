@@ -1,5 +1,7 @@
 package com.thadsayan.heracles.exercise;
 
+import com.thadsayan.heracles.exercise.enums.MuscleGroup;
+import com.thadsayan.heracles.exercise.model.Exercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

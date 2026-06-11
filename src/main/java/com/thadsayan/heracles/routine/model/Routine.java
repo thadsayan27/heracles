@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.routine;
+package com.thadsayan.heracles.routine.model;
 
 import jakarta.persistence.*;
 import lombok.*;

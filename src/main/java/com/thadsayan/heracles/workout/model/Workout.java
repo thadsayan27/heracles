@@ -1,6 +1,6 @@
 package com.thadsayan.heracles.workout.model;
 
-import com.thadsayan.heracles.user.User;
+import com.thadsayan.heracles.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 

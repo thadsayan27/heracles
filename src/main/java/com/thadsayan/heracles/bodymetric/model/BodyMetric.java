@@ -1,6 +1,6 @@
-package com.thadsayan.heracles.bodymetric;
+package com.thadsayan.heracles.bodymetric.model;
 
-import com.thadsayan.heracles.user.User;
+import com.thadsayan.heracles.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 

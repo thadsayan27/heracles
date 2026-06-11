@@ -1,6 +1,6 @@
 package com.thadsayan.heracles.security;
 
-import com.thadsayan.heracles.user.User;
+import com.thadsayan.heracles.user.model.User;
 import com.thadsayan.heracles.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;

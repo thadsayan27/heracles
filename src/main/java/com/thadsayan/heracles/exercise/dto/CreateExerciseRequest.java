@@ -1,6 +1,6 @@
 package com.thadsayan.heracles.exercise.dto;
 
-import com.thadsayan.heracles.exercise.MuscleGroup;
+import com.thadsayan.heracles.exercise.enums.MuscleGroup;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

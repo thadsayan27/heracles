@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.exercise;
+package com.thadsayan.heracles.exercise.enums;
 
 public enum MuscleGroup {
     ABDOMINAL,

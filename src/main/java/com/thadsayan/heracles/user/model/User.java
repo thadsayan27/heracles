@@ -1,5 +1,7 @@
-package com.thadsayan.heracles.user;
+package com.thadsayan.heracles.user.model;
 
+import com.thadsayan.heracles.user.enums.Role;
+import com.thadsayan.heracles.user.enums.Sex;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

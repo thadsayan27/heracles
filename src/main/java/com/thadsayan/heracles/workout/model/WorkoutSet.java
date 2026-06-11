@@ -1,5 +1,6 @@
 package com.thadsayan.heracles.workout.model;
 
+import com.thadsayan.heracles.workout.enums.SetType;
 import jakarta.persistence.*;
 import lombok.*;
 

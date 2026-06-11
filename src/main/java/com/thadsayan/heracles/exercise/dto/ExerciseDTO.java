@@ -1,6 +1,6 @@
 package com.thadsayan.heracles.exercise.dto;
 
-import com.thadsayan.heracles.exercise.MuscleGroup;
+import com.thadsayan.heracles.exercise.enums.MuscleGroup;
 import lombok.*;
 
 import java.util.UUID;

@@ -1,9 +1,8 @@
 package com.thadsayan.heracles.security;
 
-import com.thadsayan.heracles.user.User;
+import com.thadsayan.heracles.user.model.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,5 +1,6 @@
-package com.thadsayan.heracles.exercise;
+package com.thadsayan.heracles.exercise.model;
 
+import com.thadsayan.heracles.exercise.enums.MuscleGroup;
 import jakarta.persistence.*;
 import lombok.*;
 
