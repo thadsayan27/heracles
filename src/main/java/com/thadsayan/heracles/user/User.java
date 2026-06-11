@@ -2,14 +2,16 @@ package com.thadsayan.heracles.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.Date;
 import java.util.UUID;
 
 
 @Entity
-@Getter
-@Setter
-@ToString
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
@@ -37,4 +39,11 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 }
