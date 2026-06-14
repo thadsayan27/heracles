@@ -1,0 +1,10 @@
+ALTER TABLE users
+    ALTER COLUMN created_at TYPE TIMESTAMP WITH TIME ZONE
+        USING created_at AT TIME ZONE 'UTC';
+
+ALTER TABLE users
+    ALTER COLUMN updated_at TYPE TIMESTAMP WITH TIME ZONE
+        USING updated_at AT TIME ZONE 'UTC';
+
+ALTER TABLE refresh_tokens
+    ADD COLUMN created_at TIMESTAMPTZ NOT NULL DEFAULT now();
