@@ -1,10 +1,10 @@
-package com.thadsayan.heracles.security;
+package com.thadsayan.heracles.security.auth;
 
-import com.thadsayan.heracles.security.dto.AuthResponse;
 import com.thadsayan.heracles.security.dto.LoginRequest;
+import com.thadsayan.heracles.security.dto.AuthResponse;
+import com.thadsayan.heracles.security.dto.RefreshRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,20 +17,19 @@ public class AuthController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
-        UserDetails userDetails = authenticationService.authenticate(
-                loginRequest.getUsername(),
-                loginRequest.getPassword()
+        AuthResponse authResponse = authenticationService.generateTokens(
+                loginRequest
         );
+        return ResponseEntity.ok(authResponse);
+    }
 
-        String token = authenticationService.generateToken(userDetails);
-
-        AuthResponse authResponse = AuthResponse.builder()
-                .token(token)
-                .expiresIn(86400)
-                .build();
-        
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthResponse> refreshToken(@RequestBody RefreshRequest refreshRequest) {
+        AuthResponse authResponse = authenticationService.refreshTokens(
+                refreshRequest.getRefreshToken()
+        );
         return ResponseEntity.ok(authResponse);
     }
 }

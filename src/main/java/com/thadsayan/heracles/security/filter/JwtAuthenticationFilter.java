@@ -1,13 +1,15 @@
 package com.thadsayan.heracles.security.filter;
 
-import com.thadsayan.heracles.security.AuthenticationService;
-import com.thadsayan.heracles.security.UserPrincipal;
+import com.thadsayan.heracles.security.auth.AuthenticationService;
+import com.thadsayan.heracles.security.user.UserPrincipal;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,11 +24,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final AuthenticationService authenticationService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = extractToken(request);
             if (token != null) {
-                UserDetails userDetails = authenticationService.validateToken(token);
+                UserDetails userDetails = authenticationService.validateAccessToken(token);
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails,
@@ -40,9 +42,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     request.setAttribute("userId", ((UserPrincipal) userDetails).getId());
                 }
             }
-        } catch (Exception e) {
-            // Don't set authentication if token is invalid
+        } catch (Exception ex) {
             log.warn("Invalid Token");
+            throw new BadCredentialsException("Invalid Token", ex);
         }
         filterChain.doFilter(request, response);
     }

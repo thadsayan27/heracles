@@ -11,10 +11,18 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
 
   flyway:
     enabled: true
     locations: classpath:db/migration
 
-jwt:
-  secret: ${JWT_SECRET_KEY:defaultSecretKey}
+heracles:
+  jwt:
+    secret: ${JWT_SECRET_KEY:defaultSecretKey} #base64
+    refresh-secret: ${JWT_REFRESH_SECRET_KEY:defaultRefreshSecretKey} #base64
+    expiration-ms: 1800000 # 0.5h
+    refresh-expiration-ms: 172800000 # 48h

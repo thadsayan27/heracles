@@ -5,27 +5,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "refresh_tokens")
 public class RefreshToken {
 
     @Id
-    private String jti;
+    private UUID jti;
 
     @Column(nullable = false)
-    private String userId;
+    private UUID userId;
 
     @Column(nullable = false)
-    private String familyId;
+    private UUID familyId;
 
     @Column(nullable = false)
     private Instant expiresAt;
@@ -33,9 +35,11 @@ public class RefreshToken {
     @Column(nullable = false)
     private boolean revoked = false;
 
-    private String replacedByJti;
+    private UUID replacedByJti;
 
-    @CreationTimestamp
-    private Instant createdAt = Instant.now();
+    @Column(nullable = false)
+    private Instant createdAt;
+
+    private Instant revokedAt;
 
 }

@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.security;
+package com.thadsayan.heracles.security.user;
 
 import com.thadsayan.heracles.user.model.User;
 import lombok.Getter;
