@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "workout_exercises")
@@ -31,7 +32,8 @@ public class WorkoutExercise {
     @OneToMany(
             mappedBy = "workoutExercise",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     private List<WorkoutSet> sets = new ArrayList<>();
 

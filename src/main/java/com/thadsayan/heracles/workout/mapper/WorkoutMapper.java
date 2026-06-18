@@ -1,11 +1,13 @@
 package com.thadsayan.heracles.workout.mapper;
 
+
 import com.thadsayan.heracles.workout.model.Workout;
 import com.thadsayan.heracles.workout.model.WorkoutExercise;
 import com.thadsayan.heracles.workout.model.WorkoutSet;
 import com.thadsayan.heracles.workout.dto.*;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
-
+import org.mapstruct.MappingTarget;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -30,4 +32,20 @@ public interface WorkoutMapper {
     List<Workout> toWorkoutEntityList(List<CreateWorkoutRequest> createWorkoutRequests);
     List<WorkoutSet> toWorkoutSetEntityList(List<CreateWorkoutSetRequest> createWorkoutSetRequests);
     List<WorkoutExercise> toWorkoutExerciseEntityList(List<CreateWorkoutExerciseRequest> createWorkoutExerciseRequests);
+
+    @AfterMapping
+    default void linkParents(@MappingTarget Workout workout) {
+        if (workout.getExercises() == null)
+            return;
+
+        for (WorkoutExercise workoutExercise : workout.getExercises()) {
+            workoutExercise.setWorkout(workout);
+
+            if (workoutExercise.getSets() == null)
+                continue;
+
+            for (WorkoutSet workoutSet : workoutExercise.getSets())
+                workoutSet.setWorkoutExercise(workoutExercise);
+        }
+    }
 }

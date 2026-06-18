@@ -1,6 +1,6 @@
 package com.thadsayan.heracles.workout.dto;
 
-import com.thadsayan.heracles.exercise.model.Exercise;
+import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class WorkoutExerciseDTO {
     private UUID id;
-    private Exercise exercise;
+    private ExerciseDTO exercise;
     private List<WorkoutSetDTO> sets;
     private int exerciseNum;
 }
