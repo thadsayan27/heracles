@@ -3,12 +3,13 @@ package com.thadsayan.heracles.exercise;
 
 import com.thadsayan.heracles.exercise.dto.CreateExerciseRequest;
 import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
+import com.thadsayan.heracles.exercise.enums.ExerciseType;
 import com.thadsayan.heracles.exercise.mapper.ExerciseMapper;
 import com.thadsayan.heracles.exercise.model.Exercise;
+import com.thadsayan.heracles.user.UserRepository;
+import com.thadsayan.heracles.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,20 +18,21 @@ import java.util.UUID;
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseMapper exerciseMapper;
+    private final UserRepository userRepository;
 
-    public Optional<ExerciseDTO> getExerciseById(UUID id) {
-        return exerciseRepository.findById(id)
+    public Optional<ExerciseDTO> getExerciseById(UUID id, User user) {
+        return exerciseRepository.findByIdAndUserId(id, user.getId())
                 .map(exerciseMapper::toDTO);
     }
 
-    public List<ExerciseDTO> getExercisesByName(String name) {
-        return exerciseMapper.toDTOList(exerciseRepository.findByName(name));
-    }
-
-    public ExerciseDTO createExercise(CreateExerciseRequest createExerciseRequest){
+    public ExerciseDTO createExercise(CreateExerciseRequest createExerciseRequest, User user){
         Exercise exercise = exerciseMapper.toEntity(createExerciseRequest);
         if(exerciseRepository.existsByNameIgnoreCase(exercise.getName()))
             throw new IllegalArgumentException("Exercise with the same name already exists");
+
+        exercise.setUser(user);
+        exercise.setExerciseType(ExerciseType.CUSTOM);
+
         return exerciseMapper.toDTO(exerciseRepository.save(exercise));
     }
 }

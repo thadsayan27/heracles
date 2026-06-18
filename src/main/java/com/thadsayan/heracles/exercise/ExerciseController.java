@@ -2,9 +2,11 @@ package com.thadsayan.heracles.exercise;
 
 import com.thadsayan.heracles.exercise.dto.CreateExerciseRequest;
 import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
+import com.thadsayan.heracles.security.user.UserPrincipal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,25 +22,21 @@ public class ExerciseController {
     private final ExerciseService exerciseService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExerciseDTO> getExerciseById(@PathVariable UUID id) {
-        return exerciseService.getExerciseById(id)
+    public ResponseEntity<ExerciseDTO> getExerciseById(
+            @PathVariable UUID id,
+            @AuthenticationPrincipal UserPrincipal user) {
+
+        return exerciseService.getExerciseById(id,user.getUser())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping
-    public ResponseEntity<List<ExerciseDTO>> findByName(@RequestParam(required = false) String name) {
-        if (name == null || name.isBlank())
-            return ResponseEntity.ok(List.of());
-
-        return ResponseEntity.ok(exerciseService.getExercisesByName(name));
-    }
-
     @PostMapping
     public ResponseEntity<ExerciseDTO> createExercise(
-            @Valid @RequestBody CreateExerciseRequest createExerciseRequest) {
+            @Valid @RequestBody CreateExerciseRequest createExerciseRequest,
+            @AuthenticationPrincipal UserPrincipal user) {
 
-        ExerciseDTO createdExercise = exerciseService.createExercise(createExerciseRequest);
+        ExerciseDTO createdExercise = exerciseService.createExercise(createExerciseRequest, user.getUser());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(createdExercise.getId())
