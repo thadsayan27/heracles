@@ -36,6 +36,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiErrorResponse> handleResponseStatusException(ResponseStatusException ex) {
+        String message = ex.getReason() != null ? ex.getReason() : ex.getMessage();
+        ApiErrorResponse error = ApiErrorResponse.builder()
+                .status(ex.getStatusCode().value())
+                .message(message)
+                .build();
+        return ResponseEntity.status(ex.getStatusCode()).body(error);
+    }
+
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<ApiErrorResponse> handleJwtException(JwtException ex) {
         ApiErrorResponse error = ApiErrorResponse.builder()
@@ -46,7 +56,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ResourceAccessException.class)
-    public ResponseEntity<ApiErrorResponse> handleResourceAccessException() {
+    public ResponseEntity<ApiErrorResponse> handleResourceAccessException(ResourceAccessException ex) {
         ApiErrorResponse error = ApiErrorResponse.builder()
                 .status(HttpStatus.NOT_FOUND.value())
                 .message("Resource not found")
