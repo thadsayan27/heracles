@@ -3,7 +3,7 @@ package com.thadsayan.heracles.exercise;
 import com.thadsayan.heracles.exercise.enums.ExerciseType;
 import com.thadsayan.heracles.exercise.model.Exercise;
 import com.thadsayan.heracles.user.enums.Role;
-import com.thadsayan.heracles.user.enums.Sex;
+import com.thadsayan.heracles.bodymetric.enums.Sex;
 import com.thadsayan.heracles.user.model.User;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,6 @@ class ExerciseTest {
                 .email("user@test.com")
                 .username("user")
                 .passwordHash("hash")
-                .sex(Sex.male)
                 .role(Role.USER)
                 .build();
 

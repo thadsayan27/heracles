@@ -1,14 +1,13 @@
 package com.thadsayan.heracles.user.model;
 
 import com.thadsayan.heracles.user.enums.Role;
-import com.thadsayan.heracles.user.enums.Sex;
+import com.thadsayan.heracles.bodymetric.enums.Sex;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.UUID;
 
 
@@ -33,10 +32,6 @@ public class User {
 
     @Column(nullable = false)
     private String passwordHash;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Sex sex;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

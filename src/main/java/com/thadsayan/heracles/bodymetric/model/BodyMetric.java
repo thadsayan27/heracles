@@ -1,5 +1,6 @@
 package com.thadsayan.heracles.bodymetric.model;
 
+import com.thadsayan.heracles.bodymetric.enums.Sex;
 import com.thadsayan.heracles.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +24,10 @@ public class BodyMetric {
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Sex sex;
 
     @Column(nullable = false)
     private int weight;
