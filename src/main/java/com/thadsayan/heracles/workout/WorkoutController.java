@@ -38,7 +38,7 @@ public class WorkoutController {
         WorkoutDTO createdWorkout = workoutService.createWorkout(createWorkoutRequest, user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(createdWorkout)
+                .buildAndExpand(createdWorkout.getId())
                 .toUri();
 
         return ResponseEntity.created(location)
