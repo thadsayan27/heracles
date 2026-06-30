@@ -1,5 +1,6 @@
 package com.thadsayan.heracles.refreshToken;
 
+import com.thadsayan.heracles.refreshToken.model.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

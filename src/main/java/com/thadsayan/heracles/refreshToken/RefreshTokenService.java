@@ -1,5 +1,6 @@
 package com.thadsayan.heracles.refreshToken;
 
+import com.thadsayan.heracles.refreshToken.model.RefreshToken;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

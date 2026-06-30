@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.refreshToken;
+package com.thadsayan.heracles.refreshToken.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
