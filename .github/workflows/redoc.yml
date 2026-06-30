@@ -58,7 +58,17 @@ jobs:
       - name: Generate ReDoc HTML
         run: |
           mkdir -p public
-          npx @redocly/cli build-docs build/openapi.json --output public/index.html
+          
+          cat > redocly.yaml <<'YAML'
+          openapi:
+            schemaDefinitionsTagName: Schemas
+            schemasExpansionLevel: 1
+          YAML
+          
+          npx @redocly/cli@latest build-docs build/openapi.json \
+          --config redocly.yaml \
+          --title "heracles API Documentation" \
+          --output public/index.html
 
       - name: Upload to Github Pages
         uses: actions/upload-pages-artifact@v3
