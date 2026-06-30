@@ -57,6 +57,7 @@ jobs:
 
       - name: Generate ReDoc HTML
         run: |
+          curl -s http://localhost:8080/v3/api-docs | jq '.info'
           mkdir -p public
           
           cat > redocly.yaml <<'YAML'
