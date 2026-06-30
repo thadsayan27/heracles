@@ -22,7 +22,7 @@ spring:
 
 heracles:
   jwt:
-    secret: ${JWT_SECRET_KEY:defaultSecretKey} #base64
-    refresh-secret: ${JWT_REFRESH_SECRET_KEY:defaultRefreshSecretKey} #base64
+    secret: ${JWT_SECRET_KEY} #base64
+    refresh-secret: ${JWT_REFRESH_SECRET_KEY} #base64
     expiration-ms: 1800000 # 0.5h
     refresh-expiration-ms: 172800000 # 48h
