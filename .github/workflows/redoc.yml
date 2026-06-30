@@ -55,9 +55,12 @@ jobs:
       - name: Generate OpenAPI
         run: ./gradlew clean generateOpenApiDocs
 
-      - name: Generate ReDoc HTML
+      - name: Show OpenAPI info from running app
         run: |
           curl -s http://localhost:8080/v3/api-docs | jq '.info'
+          
+      - name: Generate ReDoc HTML
+        run: |
           mkdir -p public
           
           cat > redocly.yaml <<'YAML'
