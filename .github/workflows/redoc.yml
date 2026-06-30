@@ -1,4 +1,4 @@
-name: ReDoc 
+name: ReDoc
 
 on:
   push:
@@ -17,6 +17,27 @@ concurrency:
 jobs:
   build-redoc:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: app
+          POSTGRES_USER: app
+          POSTGRES_PASSWORD: app
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U app -d app"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      SPRING_PROFILES_ACTIVE: openapi
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/app
+      SPRING_DATASOURCE_USERNAME: app
+      SPRING_DATASOURCE_PASSWORD: app
 
     steps:
       - name: Checkout
@@ -37,7 +58,7 @@ jobs:
           mkdir -p public
           npx @redocly/cli build-docs build/openapi/openapi.json --output public/index.html
 
-      - name: Upload to Github Pages 
+      - name: Upload to Github Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
