@@ -13,10 +13,8 @@ import lombok.NoArgsConstructor;
 public class CreateWorkoutSetRequest {
     @NotNull(message = "Set set must have a type")
     private SetType type;
-    @NotNull(message = "Set must be associated with a Number")
     @Min(value = 0, message = "Set Number must be larger than 0")
     private int setNum;
-    @NotNull(message= "Set must be associated with a weight")
     @Min(value = 0, message = "Set weight must be larger than or equal to 0")
     private int weight;
     @NotNull(message = "Set must be associated with a number of repetitions")

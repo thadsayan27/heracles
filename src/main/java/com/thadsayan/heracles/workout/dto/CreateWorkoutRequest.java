@@ -15,8 +15,7 @@ public class CreateWorkoutRequest {
     @NotBlank(message = "Workout must have a name")
     @Size(min = 1, max = 255, message = "Workout name must be between 1 and 255 characters")
     private String name;
-    @NotNull(message = "Workout must have a workout number")
-    @Min(value = 0, message = "Workout number must be at least 1")
+    @Min(value = 0, message = "Workout number must be at least 0")
     private int workoutNum;
     @NotNull(message = "Workout must have exercises")
     @Size(min = 1, message = "Workout must have at least one exercise")

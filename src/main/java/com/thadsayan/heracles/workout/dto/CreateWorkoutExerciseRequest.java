@@ -22,7 +22,6 @@ public class CreateWorkoutExerciseRequest {
     @Size(min = 1, message = "Workout exercise must have at least one set")
     @Valid
     private List<CreateWorkoutSetRequest> sets;
-    @NotNull
-    @Min(value = 0, message = "Exercise number must be at least 1")
+    @Min(value = 0, message = "Exercise number must be at least 0")
     private int exerciseNum;
 }
