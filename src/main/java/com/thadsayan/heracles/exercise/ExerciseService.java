@@ -9,7 +9,10 @@ import com.thadsayan.heracles.exercise.model.Exercise;
 import com.thadsayan.heracles.user.UserRepository;
 import com.thadsayan.heracles.user.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,8 +30,8 @@ public class ExerciseService {
 
     public ExerciseDTO createExercise(CreateExerciseRequest createExerciseRequest, User user){
         Exercise exercise = exerciseMapper.toEntity(createExerciseRequest);
-        if(exerciseRepository.existsByNameIgnoreCase(exercise.getName()))
-            throw new IllegalArgumentException("Exercise with the same name already exists");
+        if(exerciseRepository.existsByNameIgnoreCaseAndUserId(exercise.getName(), user.getId()))
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Exercise with the same name already exists");
 
         exercise.setUser(user);
         exercise.setExerciseType(ExerciseType.CUSTOM);
