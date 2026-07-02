@@ -24,7 +24,7 @@ public class WorkoutService {
 
 
     public Optional<WorkoutDTO> getWorkoutById(UUID id, User user) {
-        return workoutRepository.findByIdAndUserId(id, user.getId())
+        return workoutRepository.findByIdAndUser_Id(id, user.getId())
                 .map(workoutMapper::toDTO);
     }
     public WorkoutDTO createWorkout(CreateWorkoutRequest createWorkoutRequest, UserPrincipal user) {

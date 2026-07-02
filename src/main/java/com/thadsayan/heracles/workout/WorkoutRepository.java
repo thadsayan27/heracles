@@ -10,15 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface WorkoutRepository extends JpaRepository<Workout, UUID> {
-
-    @Query("""
-        SELECT w
-        FROM Workout w
-        WHERE w.id = :workoutId
-        AND w.user.id = :userId
-    """)
-    Optional<Workout> findByIdAndUserId (
-            @Param("workoutId") UUID workoutId,
-            @Param("userId") UUID userId
-    );
+    Optional<Workout> findByIdAndUser_Id(UUID id, UUID userId);
 }
