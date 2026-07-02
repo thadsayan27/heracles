@@ -9,7 +9,6 @@ import com.thadsayan.heracles.testsupport.ContainersConfig;
 import com.thadsayan.heracles.user.UserRepository;
 import com.thadsayan.heracles.user.enums.Role;
 import com.thadsayan.heracles.user.model.User;
-import org.apache.coyote.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Testcontainers
@@ -91,8 +92,51 @@ class ExerciseServiceTest {
                 .primaryMuscleGroup(MuscleGroup.CHEST)
                 .build();
 
-        assertThrows(ResponseStatusException.class, () -> {
-            exerciseService.createExercise(sameName,user);
-        });
+        assertThrows(ResponseStatusException.class, () ->
+                exerciseService.createExercise(sameName,user));
+    }
+
+    @Test
+    void getAllCustomExercises_whenCalled_shouldReturnAllCustomExercisesForUser() {
+        CreateExerciseRequest createExerciseRequest1 = CreateExerciseRequest.builder()
+                .name("Push Up")
+                .primaryMuscleGroup(MuscleGroup.CHEST)
+                .build();
+
+        CreateExerciseRequest createExerciseRequest2 = CreateExerciseRequest.builder()
+                .name("Pull Up")
+                .primaryMuscleGroup(MuscleGroup.UPPER_BACK)
+                .build();
+
+        exerciseService.createExercise(createExerciseRequest1,user);
+        exerciseService.createExercise(createExerciseRequest2,user);
+
+        List<ExerciseDTO> exercises = exerciseService.getAllCustomExercises(user);
+
+        assert(exercises.size() == 2);
+    }
+
+    @Test
+    void getAllPublicExercises_whenCalled_shouldReturnAllPublicExercises() {
+        Exercise presetExercise = Exercise.builder()
+                .name("preset")
+                .exerciseType(ExerciseType.PRESET)
+                .primaryMuscleGroup(MuscleGroup.UPPER_BACK)
+                .build();
+
+
+        Exercise presetExercise1 = Exercise.builder()
+                .name("preset1")
+                .exerciseType(ExerciseType.PRESET)
+                .primaryMuscleGroup(MuscleGroup.UPPER_BACK)
+                .build();
+
+        exerciseRepository.saveAll(List.of(
+                presetExercise, presetExercise1)
+        );
+
+        List<ExerciseDTO> exercises = exerciseService.getAllPublicExercises();
+
+        assertFalse(exercises.isEmpty());
     }
 }

@@ -88,9 +88,8 @@ class RefreshTokenServiceTest {
 
         refreshTokenService.refresh(oldToken.getJti(), userId);
 
-        assertThrows(JwtException.class, () -> {
-            refreshTokenService.refresh(oldToken.getJti(), userId);
-        });
+        assertThrows(JwtException.class, () ->
+                refreshTokenService.refresh(oldToken.getJti(), userId));
     }
 
     @Test
@@ -99,9 +98,8 @@ class RefreshTokenServiceTest {
         UUID userId2 = UUID.randomUUID();
         RefreshToken oldToken = refreshTokenService.createNewRefreshToken(userId);
 
-        assertThrows(JwtException.class, () -> {
-            refreshTokenService.refresh(oldToken.getJti(), userId2);
-        });
+        assertThrows(JwtException.class, () ->
+                refreshTokenService.refresh(oldToken.getJti(), userId2));
     }
 
     @Test
@@ -112,8 +110,7 @@ class RefreshTokenServiceTest {
         oldToken.setExpiresAt(Instant.now().minusSeconds(1));
         refreshTokenRepository.save(oldToken);
 
-        assertThrows(JwtException.class, () -> {
-            refreshTokenService.refresh(oldToken.getJti(), userId);
-        });
+        assertThrows(JwtException.class, () ->
+                refreshTokenService.refresh(oldToken.getJti(), userId));
     }
 }
