@@ -54,10 +54,6 @@ jobs:
 
       - name: Generate OpenAPI
         run: ./gradlew clean generateOpenApiDocs
-
-      - name: Show OpenAPI info from running app
-        run: |
-          curl -s http://localhost:8080/v3/api-docs | jq '.info'
           
       - name: Generate ReDoc HTML
         run: |
