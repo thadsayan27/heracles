@@ -23,9 +23,6 @@ class RefreshTokenRepositoryTest {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
-    @Autowired
-    private RefreshTokenService refreshTokenService;
-
     @Test
     void revokeByFamilyId_whenCalled_shouldRevokeAllTokensWithFamilyId() {
         UUID familyId = UUID.randomUUID();
