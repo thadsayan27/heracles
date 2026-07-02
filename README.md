@@ -62,6 +62,7 @@ docker-compose up
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+View the full documentation: [Docs](https://thadsayan27.github.io/heracles/)
 
 <!-- ROADMAP -->
 ## Roadmap
