@@ -9,6 +9,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CreateExerciseRequest {
 
     @NotBlank(message = "Exercise must have a name")
