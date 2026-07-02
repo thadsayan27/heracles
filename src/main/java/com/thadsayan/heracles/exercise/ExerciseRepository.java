@@ -1,5 +1,6 @@
 package com.thadsayan.heracles.exercise;
 
+import com.thadsayan.heracles.exercise.enums.ExerciseType;
 import com.thadsayan.heracles.exercise.enums.MuscleGroup;
 import com.thadsayan.heracles.exercise.model.Exercise;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,8 +26,12 @@ public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
               OR e.user.id = :userId
           )
     """)
-    Optional<Exercise> findByIdAndUserId (
+    Optional<Exercise> findByIdAndUserId(
             @Param("exerciseId") UUID exerciseId,
             @Param("userId") UUID userId
     );
+
+    List<Exercise> findAllByUser_Id(UUID userId);
+
+    List<Exercise> findAllByExerciseType(ExerciseType exerciseType);
 }

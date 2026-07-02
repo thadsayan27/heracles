@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,6 +25,14 @@ public class ExerciseService {
     public Optional<ExerciseDTO> getExerciseById(UUID id, User user) {
         return exerciseRepository.findByIdAndUserId(id, user.getId())
                 .map(exerciseMapper::toDTO);
+    }
+
+    public List<ExerciseDTO> getAllCustomExercises(User user) {
+        return exerciseMapper.toDTOList(exerciseRepository.findAllByUser_Id(user.getId()));
+    }
+
+    public List<ExerciseDTO> getAllPublicExercises() {
+        return exerciseMapper.toDTOList(exerciseRepository.findAllByExerciseType(ExerciseType.PRESET));
     }
 
     public ExerciseDTO createExercise(CreateExerciseRequest createExerciseRequest, User user){

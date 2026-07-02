@@ -45,4 +45,17 @@ public class ExerciseController {
         return ResponseEntity.created(location)
                 .body(createdExercise);
     }
+
+    @GetMapping("/custom")
+    public ResponseEntity<List<ExerciseDTO>> getAllCustomExercises(
+            @AuthenticationPrincipal UserPrincipal user) {
+        List<ExerciseDTO> exercises = exerciseService.getAllCustomExercises(user.getUser());
+        return ResponseEntity.ok(exercises);
+    }
+
+    @GetMapping("/public")
+    public ResponseEntity<List<ExerciseDTO>> getAllPublicExercises() {
+        List<ExerciseDTO> exercises = exerciseService.getAllPublicExercises();
+        return ResponseEntity.ok(exercises);
+    }
 }
