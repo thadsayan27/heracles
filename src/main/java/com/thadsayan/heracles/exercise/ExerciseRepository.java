@@ -14,8 +14,6 @@ import java.util.UUID;
 
 @Repository
 public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
-    List<Exercise> findByName(String name);
-    List<Exercise> findByPrimaryMuscleGroup(MuscleGroup primaryMuscleGroup);
     boolean existsByNameIgnoreCaseAndUserId(String name, UUID userId);
     @Query("""
         SELECT e
