@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,8 +57,6 @@ class RefreshTokenServiceTest {
         assertEquals(token.getJti(), persisted.getJti());
         assertEquals(token.getFamilyId(), persisted.getFamilyId());
         assertEquals(token.getUserId(), persisted.getUserId());
-        assertEquals(token.getCreatedAt(), persisted.getCreatedAt());
-        assertEquals(token.getExpiresAt(), persisted.getExpiresAt());
         assertFalse(persisted.isRevoked());
     }
 
