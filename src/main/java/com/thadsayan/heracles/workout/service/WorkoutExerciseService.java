@@ -23,6 +23,6 @@ public class WorkoutExerciseService {
     public List<WorkoutExerciseDTO> getWorkoutExercisesByExerciseId(UUID exerciseId, UUID userId) {
         if(!exerciseService.canAccess(exerciseId, userId))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        return workoutMapper.toWorkoutExerciseDTOList(workoutExerciseRepository.findAllByExercise_Id(exerciseId));
+        return workoutMapper.toWorkoutExerciseDTOList(workoutExerciseRepository.findAllByExerciseIdAndUserId(exerciseId,userId));
     }
 }
