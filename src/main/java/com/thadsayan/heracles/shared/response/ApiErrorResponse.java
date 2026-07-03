@@ -2,6 +2,7 @@ package com.thadsayan.heracles.shared.response;
 
 import lombok.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -9,8 +10,11 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ApiErrorResponse {
+    private Instant timestamp;
     private int status;
+    private String error;
     private String message;
+    private String path;
     private List<FieldError> errors;
 
     @Data
@@ -21,5 +25,4 @@ public class ApiErrorResponse {
         private String field;
         private String message;
     }
-
 }

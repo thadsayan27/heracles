@@ -26,9 +26,8 @@ public class WorkoutController {
             @PathVariable UUID id,
             @AuthenticationPrincipal UserPrincipal user) {
 
-        return workoutService.getWorkoutById(id,user.getId())
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(workoutService.getWorkoutById(id,user.getId()));
+
     }
 
     @PostMapping

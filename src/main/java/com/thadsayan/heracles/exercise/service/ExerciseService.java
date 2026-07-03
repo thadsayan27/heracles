@@ -7,6 +7,8 @@ import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
 import com.thadsayan.heracles.exercise.enums.ExerciseType;
 import com.thadsayan.heracles.exercise.mapper.ExerciseMapper;
 import com.thadsayan.heracles.exercise.model.Exercise;
+import com.thadsayan.heracles.shared.exception.ConflictException;
+import com.thadsayan.heracles.shared.exception.NotFoundException;
 import com.thadsayan.heracles.user.repository.UserRepository;
 import com.thadsayan.heracles.user.model.User;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +27,10 @@ public class ExerciseService {
     private final ExerciseMapper exerciseMapper;
     private final UserRepository userRepository;
 
-    public Optional<ExerciseDTO> getExerciseById(UUID id, UUID userId) {
+    public ExerciseDTO getExerciseById(UUID id, UUID userId) {
         return exerciseRepository.findByIdAndUserId(id, userId)
-                .map(exerciseMapper::toDTO);
+                .map(exerciseMapper::toDTO)
+                .orElseThrow(() -> new NotFoundException("Workout not found"));
     }
 
     public List<ExerciseDTO> getAllCustomExercises(UUID userId) {
@@ -41,7 +44,7 @@ public class ExerciseService {
     public ExerciseDTO createExercise(CreateExerciseRequest createExerciseRequest, UUID userId){
         Exercise exercise = exerciseMapper.toEntity(createExerciseRequest);
         if(exerciseRepository.existsByNameIgnoreCaseAndUserId(exercise.getName(), userId))
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Exercise with the same name already exists");
+            throw new ConflictException("Exercise already exists");
 
         User user = userRepository.getReferenceById(userId);
         exercise.setUser(user);

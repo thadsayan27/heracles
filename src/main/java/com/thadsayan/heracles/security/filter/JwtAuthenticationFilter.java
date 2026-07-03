@@ -43,8 +43,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception ex) {
-            log.warn("Invalid Token");
-            throw new BadCredentialsException("Invalid Token", ex);
+            log.warn("Invalid token", ex);
+            throw new BadCredentialsException("Invalid token", ex);
         }
         filterChain.doFilter(request, response);
     }
