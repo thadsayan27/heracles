@@ -11,12 +11,8 @@ import com.thadsayan.heracles.workout.mapper.WorkoutMapper;
 import com.thadsayan.heracles.workout.model.WorkoutExercise;
 import com.thadsayan.heracles.workout.repository.WorkoutRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
