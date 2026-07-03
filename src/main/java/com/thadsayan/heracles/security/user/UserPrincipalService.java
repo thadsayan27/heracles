@@ -1,7 +1,7 @@
 package com.thadsayan.heracles.security.user;
 
 import com.thadsayan.heracles.user.model.User;
-import com.thadsayan.heracles.user.UserRepository;
+import com.thadsayan.heracles.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

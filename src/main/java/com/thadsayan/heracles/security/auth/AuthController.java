@@ -4,7 +4,7 @@ import com.thadsayan.heracles.security.dto.LoginRequest;
 import com.thadsayan.heracles.security.dto.AuthResponse;
 import com.thadsayan.heracles.security.dto.RefreshRequest;
 import com.thadsayan.heracles.security.dto.SignUpRequest;
-import com.thadsayan.heracles.user.UserService;
+import com.thadsayan.heracles.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

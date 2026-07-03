@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.refreshToken;
+package com.thadsayan.heracles.refreshToken.repository;
 
 import com.thadsayan.heracles.refreshToken.model.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;

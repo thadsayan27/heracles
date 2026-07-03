@@ -1,7 +1,7 @@
 package com.thadsayan.heracles.security.auth;
 
 import com.thadsayan.heracles.refreshToken.model.RefreshToken;
-import com.thadsayan.heracles.refreshToken.RefreshTokenService;
+import com.thadsayan.heracles.refreshToken.service.RefreshTokenService;
 import com.thadsayan.heracles.security.user.UserPrincipal;
 import com.thadsayan.heracles.security.dto.AuthResponse;
 import com.thadsayan.heracles.security.dto.LoginRequest;

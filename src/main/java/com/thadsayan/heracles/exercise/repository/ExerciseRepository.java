@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.exercise;
+package com.thadsayan.heracles.exercise.repository;
 
 import com.thadsayan.heracles.exercise.enums.ExerciseType;
 import com.thadsayan.heracles.exercise.model.Exercise;

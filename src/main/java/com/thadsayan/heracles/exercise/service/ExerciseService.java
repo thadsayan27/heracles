@@ -1,12 +1,13 @@
-package com.thadsayan.heracles.exercise;
+package com.thadsayan.heracles.exercise.service;
 
 
+import com.thadsayan.heracles.exercise.repository.ExerciseRepository;
 import com.thadsayan.heracles.exercise.dto.CreateExerciseRequest;
 import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
 import com.thadsayan.heracles.exercise.enums.ExerciseType;
 import com.thadsayan.heracles.exercise.mapper.ExerciseMapper;
 import com.thadsayan.heracles.exercise.model.Exercise;
-import com.thadsayan.heracles.user.UserRepository;
+import com.thadsayan.heracles.user.repository.UserRepository;
 import com.thadsayan.heracles.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

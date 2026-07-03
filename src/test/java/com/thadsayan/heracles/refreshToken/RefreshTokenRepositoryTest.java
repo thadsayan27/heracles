@@ -1,6 +1,7 @@
 package com.thadsayan.heracles.refreshToken;
 
 import com.thadsayan.heracles.refreshToken.model.RefreshToken;
+import com.thadsayan.heracles.refreshToken.repository.RefreshTokenRepository;
 import com.thadsayan.heracles.testsupport.ContainersConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

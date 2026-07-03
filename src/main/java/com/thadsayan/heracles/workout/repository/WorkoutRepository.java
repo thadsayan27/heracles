@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.workout;
+package com.thadsayan.heracles.workout.repository;
 
 import com.thadsayan.heracles.workout.model.Workout;
 import org.springframework.data.jpa.repository.JpaRepository;

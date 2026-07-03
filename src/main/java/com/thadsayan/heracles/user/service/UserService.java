@@ -1,8 +1,9 @@
-package com.thadsayan.heracles.user;
+package com.thadsayan.heracles.user.service;
 
 import com.thadsayan.heracles.security.dto.SignUpRequest;
 import com.thadsayan.heracles.user.enums.Role;
 import com.thadsayan.heracles.user.model.User;
+import com.thadsayan.heracles.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

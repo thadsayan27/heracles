@@ -1,4 +1,4 @@
-package com.thadsayan.heracles.user;
+package com.thadsayan.heracles.user.repository;
 
 import com.thadsayan.heracles.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

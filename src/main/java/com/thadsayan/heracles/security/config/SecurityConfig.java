@@ -3,7 +3,7 @@ package com.thadsayan.heracles.security.config;
 import com.thadsayan.heracles.security.auth.AuthenticationService;
 import com.thadsayan.heracles.security.filter.JwtAuthenticationFilter;
 import com.thadsayan.heracles.security.user.UserPrincipalService;
-import com.thadsayan.heracles.user.UserRepository;
+import com.thadsayan.heracles.user.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

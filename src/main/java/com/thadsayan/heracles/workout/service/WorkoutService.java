@@ -1,14 +1,14 @@
-package com.thadsayan.heracles.workout;
+package com.thadsayan.heracles.workout.service;
 
-import com.thadsayan.heracles.exercise.ExerciseRepository;
-import com.thadsayan.heracles.security.user.UserPrincipal;
-import com.thadsayan.heracles.user.UserRepository;
+import com.thadsayan.heracles.exercise.repository.ExerciseRepository;
+import com.thadsayan.heracles.user.repository.UserRepository;
 import com.thadsayan.heracles.user.model.User;
 import com.thadsayan.heracles.workout.dto.CreateWorkoutRequest;
 import com.thadsayan.heracles.workout.dto.WorkoutDTO;
 import com.thadsayan.heracles.workout.model.Workout;
 import com.thadsayan.heracles.workout.mapper.WorkoutMapper;
 import com.thadsayan.heracles.workout.model.WorkoutExercise;
+import com.thadsayan.heracles.workout.repository.WorkoutRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;

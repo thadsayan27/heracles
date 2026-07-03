@@ -1,6 +1,8 @@
 package com.thadsayan.heracles.refreshToken;
 
 import com.thadsayan.heracles.refreshToken.model.RefreshToken;
+import com.thadsayan.heracles.refreshToken.repository.RefreshTokenRepository;
+import com.thadsayan.heracles.refreshToken.service.RefreshTokenService;
 import com.thadsayan.heracles.testsupport.ContainersConfig;
 import io.jsonwebtoken.JwtException;
 import org.junit.jupiter.api.BeforeEach;

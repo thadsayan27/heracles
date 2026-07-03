@@ -1,6 +1,7 @@
-package com.thadsayan.heracles.workout;
+package com.thadsayan.heracles.workout.controller;
 
 import com.thadsayan.heracles.security.user.UserPrincipal;
+import com.thadsayan.heracles.workout.service.WorkoutService;
 import com.thadsayan.heracles.workout.dto.CreateWorkoutRequest;
 import com.thadsayan.heracles.workout.dto.WorkoutDTO;
 import jakarta.validation.Valid;

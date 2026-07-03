@@ -1,5 +1,6 @@
-package com.thadsayan.heracles.exercise;
+package com.thadsayan.heracles.exercise.controller;
 
+import com.thadsayan.heracles.exercise.service.ExerciseService;
 import com.thadsayan.heracles.exercise.dto.CreateExerciseRequest;
 import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
 import com.thadsayan.heracles.security.user.UserPrincipal;
