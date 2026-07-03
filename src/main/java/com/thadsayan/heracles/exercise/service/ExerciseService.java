@@ -49,4 +49,8 @@ public class ExerciseService {
 
         return exerciseMapper.toDTO(exerciseRepository.save(exercise));
     }
+
+    public boolean canAccess(UUID id, UUID userId) {
+        return exerciseRepository.canAccess(id, userId);
+    }
 }

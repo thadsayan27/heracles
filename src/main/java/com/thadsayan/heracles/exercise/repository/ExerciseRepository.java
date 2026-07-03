@@ -15,6 +15,7 @@ import java.util.UUID;
 @Repository
 public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
     boolean existsByNameIgnoreCaseAndUserId(String name, UUID userId);
+
     @Query("""
         SELECT e
         FROM Exercise e
@@ -33,5 +34,14 @@ public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
 
     List<Exercise> findAllByExerciseType(ExerciseType exerciseType);
 
-    UUID user(User user);
+    @Query("""
+        SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
+        FROM Exercise e
+        WHERE e.id = :exerciseId
+          AND (
+              e.exerciseType = PRESET
+              OR e.user.id = :userId
+          )
+    """)
+    boolean canAccess(@Param("exerciseId") UUID exerciseId, @Param("userId") UUID userId);
 }
