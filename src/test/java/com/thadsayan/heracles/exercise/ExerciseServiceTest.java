@@ -23,8 +23,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
 @SpringBootTest
@@ -66,17 +65,17 @@ class ExerciseServiceTest {
 
         ExerciseDTO exerciseDTO = exerciseService.createExercise(createExerciseRequest, user.getId());
 
-        assert(exerciseDTO.getId() != null);
-        assert(exerciseDTO.getName().equals("Push Up"));
-        assert(exerciseDTO.getPrimaryMuscleGroup().equals(MuscleGroup.CHEST));
+        assertNotNull(exerciseDTO.getId());
+        assertEquals("Push Up", exerciseDTO.getName());
+        assertEquals(MuscleGroup.CHEST, exerciseDTO.getPrimaryMuscleGroup());
 
         Optional<Exercise> exercise = exerciseRepository.findByIdAndUserId(exerciseDTO.getId(), user.getId());
 
-        assert(exercise.isPresent());
-        assert(exercise.get().getName().equals("Push Up"));
-        assert(exercise.get().getPrimaryMuscleGroup().equals(MuscleGroup.CHEST));
-        assert(exercise.get().getUser().getId().equals(user.getId()));
-        assert(exercise.get().getExerciseType().equals(ExerciseType.CUSTOM));
+        assertTrue(exercise.isPresent());
+        assertEquals("Push Up", exercise.get().getName());
+        assertEquals(MuscleGroup.CHEST, exercise.get().getPrimaryMuscleGroup());
+        assertEquals(exercise.get().getUser().getId(), user.getId());
+        assertEquals(ExerciseType.CUSTOM, exercise.get().getExerciseType());
 
     }
 
@@ -115,7 +114,7 @@ class ExerciseServiceTest {
 
         List<ExerciseDTO> exercises = exerciseService.getAllCustomExercises(user.getId());
 
-        assert(exercises.size() == 2);
+        assertEquals(2, exercises.size());
     }
 
     @Test

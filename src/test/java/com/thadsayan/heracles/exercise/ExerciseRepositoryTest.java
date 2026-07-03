@@ -20,6 +20,9 @@ import java.util.Optional;
 import java.util.List;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 @Testcontainers
 @SpringBootTest
@@ -81,13 +84,13 @@ class ExerciseRepositoryTest {
 
         Optional<Exercise> result = exerciseRepository.findByIdAndUserId(savedExerciseUUID, user.getId());
 
-        assert(result.isPresent());
-        assert(result.get().getId().equals(savedExerciseUUID));
+        assertTrue(result.isPresent());
+        assertEquals(result.get().getId(), savedExerciseUUID);
 
         result = exerciseRepository.findByIdAndUserId(savedExerciseUUID, user2.getId());
 
-        assert(result.isPresent());
-        assert(result.get().getId().equals(savedExerciseUUID));
+        assertTrue(result.isPresent());
+        assertEquals(result.get().getId(), savedExerciseUUID);
 
     }
 
@@ -95,14 +98,14 @@ class ExerciseRepositoryTest {
     void findByidAndUserId_whenExerciseIsCustomAndUserMatches_shouldReturnExercise() {
         Optional<Exercise> result = exerciseRepository.findByIdAndUserId(customExercise.getId(), user.getId());
 
-        assert(result.isPresent());
-        assert(result.get().getId().equals(customExercise.getId()));
+        assertTrue(result.isPresent());
+        assertEquals(result.get().getId(), customExercise.getId());
     }
 
     @Test
     void findByidAndUserId_whenExerciseIsCustomAndUserDoesNotMatch_shouldReturnEmpty() {
         Optional<Exercise> result = exerciseRepository.findByIdAndUserId(customExercise.getId(), user2.getId());
 
-        assert(result.isEmpty());
+        assertTrue(result.isEmpty());
     }
 }
