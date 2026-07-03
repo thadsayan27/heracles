@@ -4,8 +4,6 @@ import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
 import com.thadsayan.heracles.exercise.service.ExerciseService;
 import com.thadsayan.heracles.security.user.UserPrincipal;
 import com.thadsayan.heracles.workout.dto.WorkoutExerciseDTO;
-import com.thadsayan.heracles.workout.model.WorkoutExercise;
-import com.thadsayan.heracles.workout.repository.WorkoutExerciseRepository;
 import com.thadsayan.heracles.workout.service.WorkoutExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +36,8 @@ public class UserExerciseController {
             @PathVariable UUID id,
             @AuthenticationPrincipal UserPrincipal user) {
 
-        return ResponseEntity.ok(workoutExerciseService.getWorkoutExercisesByExerciseId(id));
+        return ResponseEntity.ok(
+                workoutExerciseService.getWorkoutExercisesByExerciseId(id,user.getId())
+        );
     }
 }
