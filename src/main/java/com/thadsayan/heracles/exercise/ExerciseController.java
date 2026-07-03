@@ -49,7 +49,7 @@ public class ExerciseController {
     @GetMapping("/custom")
     public ResponseEntity<List<ExerciseDTO>> getAllCustomExercises(
             @AuthenticationPrincipal UserPrincipal user) {
-        List<ExerciseDTO> exercises = exerciseService.getAllCustomExercises(user.getUser());
+        List<ExerciseDTO> exercises = exerciseService.getAllCustomExercises(user.getId());
         return ResponseEntity.ok(exercises);
     }
 
