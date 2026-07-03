@@ -25,7 +25,7 @@ public class WorkoutController {
             @PathVariable UUID id,
             @AuthenticationPrincipal UserPrincipal user) {
 
-        return workoutService.getWorkoutById(id,user.getUser())
+        return workoutService.getWorkoutById(id,user.getId())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -35,7 +35,7 @@ public class WorkoutController {
             @Valid @RequestBody CreateWorkoutRequest createWorkoutRequest,
             @AuthenticationPrincipal UserPrincipal user) {
 
-        WorkoutDTO createdWorkout = workoutService.createWorkout(createWorkoutRequest, user);
+        WorkoutDTO createdWorkout = workoutService.createWorkout(createWorkoutRequest, user.getId());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(createdWorkout.getId())

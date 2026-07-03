@@ -2,6 +2,7 @@ package com.thadsayan.heracles.workout;
 
 import com.thadsayan.heracles.exercise.ExerciseRepository;
 import com.thadsayan.heracles.security.user.UserPrincipal;
+import com.thadsayan.heracles.user.UserRepository;
 import com.thadsayan.heracles.user.model.User;
 import com.thadsayan.heracles.workout.dto.CreateWorkoutRequest;
 import com.thadsayan.heracles.workout.dto.WorkoutDTO;
@@ -21,15 +22,18 @@ public class WorkoutService {
     private final WorkoutRepository workoutRepository;
     private final WorkoutMapper workoutMapper;
     private final ExerciseRepository exerciseRepository;
+    private final UserRepository userRepository;
 
 
-    public Optional<WorkoutDTO> getWorkoutById(UUID id, User user) {
-        return workoutRepository.findByIdAndUser_Id(id, user.getId())
+    public Optional<WorkoutDTO> getWorkoutById(UUID id, UUID userId) {
+        return workoutRepository.findByIdAndUser_Id(id, userId)
                 .map(workoutMapper::toDTO);
     }
-    public WorkoutDTO createWorkout(CreateWorkoutRequest createWorkoutRequest, UserPrincipal user) {
+    public WorkoutDTO createWorkout(CreateWorkoutRequest createWorkoutRequest, UUID userId) {
         Workout workout = workoutMapper.toEntity(createWorkoutRequest);
-        workout.setUser(user.getUser());
+
+        User user = userRepository.getReferenceById(userId);
+        workout.setUser(user);
 
         for(int i = 0; i < workout.getExercises().size(); i++) {
             WorkoutExercise workoutExercise = workout.getExercises().get(i);

@@ -26,7 +26,7 @@ public class ExerciseController {
             @PathVariable UUID id,
             @AuthenticationPrincipal UserPrincipal user) {
 
-        return exerciseService.getExerciseById(id,user.getUser())
+        return exerciseService.getExerciseById(id,user.getId())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -36,7 +36,7 @@ public class ExerciseController {
             @Valid @RequestBody CreateExerciseRequest createExerciseRequest,
             @AuthenticationPrincipal UserPrincipal user) {
 
-        ExerciseDTO createdExercise = exerciseService.createExercise(createExerciseRequest, user.getUser());
+        ExerciseDTO createdExercise = exerciseService.createExercise(createExerciseRequest, user.getId());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(createdExercise.getId())

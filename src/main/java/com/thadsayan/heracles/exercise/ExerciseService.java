@@ -6,6 +6,7 @@ import com.thadsayan.heracles.exercise.dto.ExerciseDTO;
 import com.thadsayan.heracles.exercise.enums.ExerciseType;
 import com.thadsayan.heracles.exercise.mapper.ExerciseMapper;
 import com.thadsayan.heracles.exercise.model.Exercise;
+import com.thadsayan.heracles.user.UserRepository;
 import com.thadsayan.heracles.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,25 +22,27 @@ import java.util.UUID;
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final ExerciseMapper exerciseMapper;
+    private final UserRepository userRepository;
 
-    public Optional<ExerciseDTO> getExerciseById(UUID id, User user) {
-        return exerciseRepository.findByIdAndUserId(id, user.getId())
+    public Optional<ExerciseDTO> getExerciseById(UUID id, UUID userId) {
+        return exerciseRepository.findByIdAndUserId(id, userId)
                 .map(exerciseMapper::toDTO);
     }
 
-    public List<ExerciseDTO> getAllCustomExercises(User user) {
-        return exerciseMapper.toDTOList(exerciseRepository.findAllByUser_Id(user.getId()));
+    public List<ExerciseDTO> getAllCustomExercises(UUID userId) {
+        return exerciseMapper.toDTOList(exerciseRepository.findAllByUser_Id(userId));
     }
 
     public List<ExerciseDTO> getAllPublicExercises() {
         return exerciseMapper.toDTOList(exerciseRepository.findAllByExerciseType(ExerciseType.PRESET));
     }
 
-    public ExerciseDTO createExercise(CreateExerciseRequest createExerciseRequest, User user){
+    public ExerciseDTO createExercise(CreateExerciseRequest createExerciseRequest, UUID userId){
         Exercise exercise = exerciseMapper.toEntity(createExerciseRequest);
-        if(exerciseRepository.existsByNameIgnoreCaseAndUserId(exercise.getName(), user.getId()))
+        if(exerciseRepository.existsByNameIgnoreCaseAndUserId(exercise.getName(), userId))
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Exercise with the same name already exists");
 
+        User user = userRepository.getReferenceById(userId);
         exercise.setUser(user);
         exercise.setExerciseType(ExerciseType.CUSTOM);
 
