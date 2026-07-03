@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -21,4 +22,8 @@ public class CreateWorkoutRequest {
     @Size(min = 1, message = "Workout must have at least one exercise")
     @Valid
     private List<CreateWorkoutExerciseRequest> exercises;
+    @NotNull(message = "Workout date is required")
+    private Instant performedAt;
+    @Min(value = 0, message = "Duration must be at least 0 minutes")
+    private int durationMinutes;
 }

@@ -4,6 +4,7 @@ import com.thadsayan.heracles.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -38,4 +39,10 @@ public class Workout {
             fetch = FetchType.LAZY
     )
     private List<WorkoutExercise> exercises = new ArrayList<>();
+
+    @Column(name = "performed_at", nullable = false)
+    private Instant performedAt;
+
+    @Column(name = "duration_minutes")
+    private Integer durationMinutes;
 }
