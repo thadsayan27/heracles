@@ -14,7 +14,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.util.List;
@@ -45,29 +44,29 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ApiErrorResponse> handleBadCredentialsException(BadCredentialsException ex) {
-        ApiErrorResponse error = ApiErrorResponse.builder()
-                .status(HttpStatus.UNAUTHORIZED.value())
-                .message("Incorrect username or password")
-                .build();
-        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+        return buildApiErrorResponse(
+                HttpStatus.UNAUTHORIZED,
+                "Incorrect username or password",
+                null
+        );
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
     public ResponseEntity<ApiErrorResponse> handleExpiredJwtException(ExpiredJwtException ex) {
-        ApiErrorResponse error = ApiErrorResponse.builder()
-                .status(HttpStatus.UNAUTHORIZED.value())
-                .message("Invalid Token")
-                .build();
-        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+        return buildApiErrorResponse(
+                HttpStatus.UNAUTHORIZED,
+                "Invalid Token",
+                null
+        );
     }
 
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<ApiErrorResponse> handleJwtException(JwtException ex) {
-        ApiErrorResponse error = ApiErrorResponse.builder()
-                .status(HttpStatus.UNAUTHORIZED.value())
-                .message("Invalid Token")
-                .build();
-        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+        return buildApiErrorResponse(
+                HttpStatus.UNAUTHORIZED,
+                "Invalid Token",
+                null
+        );
     }
 
     @ExceptionHandler(ApiException.class)
