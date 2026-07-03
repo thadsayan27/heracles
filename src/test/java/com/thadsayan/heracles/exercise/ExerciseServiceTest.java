@@ -64,7 +64,7 @@ class ExerciseServiceTest {
                 .primaryMuscleGroup(MuscleGroup.CHEST)
                 .build();
 
-        ExerciseDTO exerciseDTO = exerciseService.createExercise(createExerciseRequest,user);
+        ExerciseDTO exerciseDTO = exerciseService.createExercise(createExerciseRequest, user.getId());
 
         assert(exerciseDTO.getId() != null);
         assert(exerciseDTO.getName().equals("Push Up"));
@@ -87,7 +87,7 @@ class ExerciseServiceTest {
                 .primaryMuscleGroup(MuscleGroup.CHEST)
                 .build();
 
-        exerciseService.createExercise(createExerciseRequest,user);
+        exerciseService.createExercise(createExerciseRequest, user.getId());
 
         CreateExerciseRequest sameName = CreateExerciseRequest.builder()
                 .name("Push Up")
@@ -95,7 +95,7 @@ class ExerciseServiceTest {
                 .build();
 
         assertThrows(ResponseStatusException.class, () ->
-                exerciseService.createExercise(sameName,user));
+                exerciseService.createExercise(sameName, user.getId()));
     }
 
     @Test
@@ -110,10 +110,10 @@ class ExerciseServiceTest {
                 .primaryMuscleGroup(MuscleGroup.UPPER_BACK)
                 .build();
 
-        exerciseService.createExercise(createExerciseRequest1,user);
-        exerciseService.createExercise(createExerciseRequest2,user);
+        exerciseService.createExercise(createExerciseRequest1, user.getId());
+        exerciseService.createExercise(createExerciseRequest2, user.getId());
 
-        List<ExerciseDTO> exercises = exerciseService.getAllCustomExercises(user);
+        List<ExerciseDTO> exercises = exerciseService.getAllCustomExercises(user.getId());
 
         assert(exercises.size() == 2);
     }
