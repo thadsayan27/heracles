@@ -7,6 +7,7 @@ import com.thadsayan.heracles.exercise.enums.MuscleGroup;
 import com.thadsayan.heracles.exercise.model.Exercise;
 import com.thadsayan.heracles.exercise.repository.ExerciseRepository;
 import com.thadsayan.heracles.exercise.service.ExerciseService;
+import com.thadsayan.heracles.shared.exception.ConflictException;
 import com.thadsayan.heracles.testsupport.ContainersConfig;
 import com.thadsayan.heracles.user.repository.UserRepository;
 import com.thadsayan.heracles.user.enums.Role;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.web.server.ResponseStatusException;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
@@ -93,7 +93,7 @@ class ExerciseServiceTest {
                 .primaryMuscleGroup(MuscleGroup.CHEST)
                 .build();
 
-        assertThrows(ResponseStatusException.class, () ->
+        assertThrows(ConflictException.class, () ->
                 exerciseService.createExercise(sameName, user.getId()));
     }
 
