@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,5 +25,18 @@ public class WorkoutExerciseService {
         if(!exerciseService.canAccess(exerciseId, userId))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return workoutMapper.toWorkoutExerciseDTOList(workoutExerciseRepository.findAllByExerciseIdAndUserId(exerciseId,userId));
+    }
+
+    public List<WorkoutExerciseDTO> findTopExercises(UUID userId) {
+        return workoutMapper.toWorkoutExerciseDTOList(workoutExerciseRepository.findTopExercisesByUser_Id(userId));
+    }
+
+    public List<WorkoutExerciseDTO> findExercisesPerformedAfter(UUID workoutId, Instant performedAtAfter) {
+        return workoutMapper.toWorkoutExerciseDTOList(
+                workoutExerciseRepository.findWorkoutExercisesByWorkout_IdAndWorkout_PerformedAtAfter(
+                        workoutId,
+                        performedAtAfter
+                )
+        );
     }
 }

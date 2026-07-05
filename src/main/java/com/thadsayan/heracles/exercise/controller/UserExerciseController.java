@@ -8,11 +8,9 @@ import com.thadsayan.heracles.workout.service.WorkoutExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +36,24 @@ public class UserExerciseController {
 
         return ResponseEntity.ok(
                 workoutExerciseService.getWorkoutExercisesByExerciseId(id,user.getId())
+        );
+    }
+
+    @GetMapping("/{id}/workout_exercises/performed")
+    public ResponseEntity<List<WorkoutExerciseDTO>> getWorkoutExercisesPerformedAfter(
+            @RequestParam UUID id,
+            @RequestParam Instant performedAtAfter,
+            @AuthenticationPrincipal UserPrincipal user) {
+        return ResponseEntity.ok(
+                workoutExerciseService.findExercisesPerformedAfter(id,performedAtAfter)
+        );
+    }
+
+    @GetMapping("/top")
+    public ResponseEntity<List<WorkoutExerciseDTO>> getTopExercises(
+            @AuthenticationPrincipal UserPrincipal user) {
+        return ResponseEntity.ok(
+                workoutExerciseService.findTopExercises(user.getId())
         );
     }
 }
