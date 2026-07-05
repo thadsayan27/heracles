@@ -39,7 +39,7 @@ public class UserExerciseController {
         );
     }
 
-    @GetMapping("/{id}/workout_exercises/performed")
+    @GetMapping("/workout_exercises/performed")
     public ResponseEntity<List<WorkoutExerciseDTO>> getWorkoutExercisesPerformedAfter(
             @RequestParam Instant after,
             @AuthenticationPrincipal UserPrincipal user) {
