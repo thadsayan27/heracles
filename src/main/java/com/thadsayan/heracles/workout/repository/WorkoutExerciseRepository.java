@@ -1,6 +1,5 @@
 package com.thadsayan.heracles.workout.repository;
 
-import com.thadsayan.heracles.workout.model.Workout;
 import com.thadsayan.heracles.workout.model.WorkoutExercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

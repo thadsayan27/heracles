@@ -5,11 +5,9 @@ import com.thadsayan.heracles.shared.exception.BadRequestException;
 import com.thadsayan.heracles.workout.dto.WorkoutDTO;
 import com.thadsayan.heracles.workout.service.WorkoutService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.util.List;
