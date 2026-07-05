@@ -18,8 +18,19 @@
 
 A multi-user gym tracker that allows users to track their workouts, exercises and progress.
 
+## Features
 
-### Built With
+- User registration and login with JWT-based authentication
+- Refresh-token rotation with server-side token revocation
+- Create custom exercises
+- Create workouts with multiple exercises and sets
+- Query workout history 
+- Query performed exercises and most used exercises
+- PostgreSQL with Flyway migrations
+- API documentation via OpenAPI/ReDoc
+- Docker Compose setup for local development
+
+## Built With
 
 * [![Spring Boot][Spring Boot]][SpringBoot-url]
 * [![Spring Security][Spring-Security]][Spring-Security-url]
@@ -139,6 +150,70 @@ Example response:
 ```
 ---
 
+### Exercise
+
+#### Create a custom exercise
+
+```sh
+curl -i -X POST "$BASE_URL/api/exercises" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Incline Dumbbell Press",
+    "primaryMuscleGroup": "CHEST"
+  }'
+```
+
+#### Get all custom exercise
+
+```sh
+curl -i -X GET "$BASE_URL/api/me/exercises/custom" \
+  -H "Authorization: Bearer $ACCESS_TOKEN"
+```
+
+### Workout
+
+#### Create a workout
+User needs to own the exercise or the exercise needs to be a default exercise.
+```sh
+curl -i -X POST "$BASE_URL/api/workouts" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Push Day",
+    "workoutNum": 1,
+    "performedAt": "2026-07-05T17:30:00Z",
+    "durationMinutes": 75,
+    "exercises": [
+      {
+        "exerciseId": "0b6a1f3e-2e8b-4a1c-93e2-7dbdcd5c9f91",
+        "exerciseNum": 1,
+        "sets": [
+          {
+            "type": "WARM_UP",
+            "setNum": 1,
+            "weight": 20,
+            "repetitions": 12
+          },
+          {
+            "type": "WORKING",
+            "setNum": 2,
+            "weight": 32,
+            "repetitions": 10
+          },
+          {
+            "type": "FAILURE",
+            "setNum": 3,
+            "weight": 32,
+            "repetitions": 8
+          }
+        ]
+      }
+    ]
+  }'
+```
+
+---
 ### Error Examples
 
 #### Unauthorized request
