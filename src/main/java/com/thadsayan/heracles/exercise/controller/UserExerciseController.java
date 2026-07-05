@@ -41,11 +41,10 @@ public class UserExerciseController {
 
     @GetMapping("/{id}/workout_exercises/performed")
     public ResponseEntity<List<WorkoutExerciseDTO>> getWorkoutExercisesPerformedAfter(
-            @RequestParam UUID id,
-            @RequestParam Instant performedAtAfter,
+            @RequestParam Instant after,
             @AuthenticationPrincipal UserPrincipal user) {
         return ResponseEntity.ok(
-                workoutExerciseService.findExercisesPerformedAfter(id,performedAtAfter)
+                workoutExerciseService.findExercisesPerformedAfter(user.getId(),after)
         );
     }
 
