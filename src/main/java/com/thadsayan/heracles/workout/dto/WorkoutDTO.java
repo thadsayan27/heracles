@@ -1,9 +1,12 @@
 package com.thadsayan.heracles.workout.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,4 +18,6 @@ public class WorkoutDTO {
     private String name;
     private int workoutNum;
     private List<WorkoutExerciseDTO> exercises;
+    private Instant performedAt;
+    private int durationMinutes;
 }

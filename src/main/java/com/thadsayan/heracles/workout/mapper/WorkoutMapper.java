@@ -7,6 +7,7 @@ import com.thadsayan.heracles.workout.model.WorkoutSet;
 import com.thadsayan.heracles.workout.dto.*;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface WorkoutMapper {
     WorkoutDTO toDTO(Workout workout);
     WorkoutSetDTO toDTO(WorkoutSet workoutSet);
     WorkoutExerciseDTO toDTO(WorkoutExercise workoutExercise);
-
+    
     Workout toEntity(WorkoutDTO workoutDTO);
     WorkoutSet toEntity(WorkoutSetDTO workoutSetDTO);
     WorkoutExercise toEntity(WorkoutExerciseDTO workoutExerciseDTO);

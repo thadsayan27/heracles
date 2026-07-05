@@ -13,6 +13,8 @@ import com.thadsayan.heracles.workout.repository.WorkoutRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -45,5 +47,17 @@ public class WorkoutService {
         }
 
         return workoutMapper.toDTO(workoutRepository.save(workout));
+    }
+
+    public List<WorkoutDTO> getAllWorkoutsByUserId(UUID userId) {
+        return workoutMapper.toWorkoutDTOList(workoutRepository.findAllByUser_Id(userId));
+    }
+
+    public List<WorkoutDTO> getWorkoutsByPerformedAtBetween(UUID userId, Instant performedAtAfter, Instant performedAtBefore) {
+        return workoutMapper.toWorkoutDTOList(workoutRepository.findWorkoutsByUser_IdAndPerformedAtBetween(
+                userId,
+                performedAtAfter,
+                performedAtBefore
+        ));
     }
 }
