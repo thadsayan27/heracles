@@ -58,6 +58,10 @@ public class ExerciseController {
                 .body(createdExercise);
     }
 
+    @Operation(
+            summary = "Get public exercises",
+            description = "Returns a List of all default Exercises"
+    )
     @GetMapping("/public")
     public ResponseEntity<List<ExerciseDTO>> getAllPublicExercises() {
         List<ExerciseDTO> exercises = exerciseService.getAllPublicExercises();
