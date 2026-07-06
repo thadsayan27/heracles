@@ -70,12 +70,6 @@ jobs:
       - name: Lint OpenAPI
         run: npx @redocly/cli@${REDOCLY_CLI_VERSION} lint build/openapi.json --config redocly.yaml
 
-      - name: Generate OpenAPI
-        run: ./gradlew clean generateOpenApiDocs --no-daemon
-
-      - name: Lint OpenAPI
-        run: npx @redocly/cli@${REDOCLY_CLI_VERSION} lint build/openapi.json --config redocly.yaml
-
       - name: Generate ReDoc HTML
         run: |
           mkdir -p public
