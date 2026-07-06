@@ -3,6 +3,12 @@ name: ReDoc
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'build.gradle.kts'
+      - 'settings.gradle.kts'
+      - 'redocly.yaml'
+      - '.github/workflows/redoc.yml'
   workflow_dispatch:
 
 permissions:
@@ -40,6 +46,7 @@ jobs:
       SPRING_DATASOURCE_PASSWORD: app
       JWT_SECRET_KEY: YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=
       JWT_REFRESH_SECRET_KEY: YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=
+      REDOCLY_CLI_VERSION: 2.37.0
 
     steps:
       - name: Checkout
@@ -52,25 +59,34 @@ jobs:
           java-version: 21
           cache: gradle
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Generate OpenAPI
-        run: ./gradlew clean generateOpenApiDocs
-          
+        run: ./gradlew clean generateOpenApiDocs --no-daemon
+
+      - name: Lint OpenAPI
+        run: npx @redocly/cli@${REDOCLY_CLI_VERSION} lint build/openapi.json --config redocly.yaml
+
+      - name: Generate OpenAPI
+        run: ./gradlew clean generateOpenApiDocs --no-daemon
+
+      - name: Lint OpenAPI
+        run: npx @redocly/cli@${REDOCLY_CLI_VERSION} lint build/openapi.json --config redocly.yaml
+
       - name: Generate ReDoc HTML
         run: |
           mkdir -p public
-          
-          cat > redocly.yaml <<'YAML'
-          openapi:
-            schemaDefinitionsTagName: Schemas
-            schemasExpansionLevel: 1
-          YAML
-          
-          npx @redocly/cli@latest build-docs build/openapi.json \
-          --config redocly.yaml \
-          --title "heracles API Documentation" \
-          --output public/index.html
+          touch public/.nojekyll
 
-      - name: Upload to Github Pages
+          npx @redocly/cli@${REDOCLY_CLI_VERSION} build-docs build/openapi.json \
+            --config redocly.yaml \
+            --title "heracles API Documentation" \
+            --output public/index.html
+
+      - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: public
