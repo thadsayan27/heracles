@@ -6,6 +6,7 @@ import com.thadsayan.heracles.security.dto.RefreshRequest;
 import com.thadsayan.heracles.security.dto.SignUpRequest;
 import com.thadsayan.heracles.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@SecurityRequirements
 @Tag(name = "Authentication", description = " User registration, login and token refresh")
 public class AuthController {
 
