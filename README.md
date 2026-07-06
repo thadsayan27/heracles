@@ -40,6 +40,7 @@ A multi-user gym tracker that allows users to track their workouts, exercises an
 * [![Gradle][Gradle]][Gradle-url]
 * [![Docker Compose][Docker-Compose]][Docker-Compose-url]
 * [![Docker][Docker]][Docker-url]
+* [![Redocly][Redocly]][Redocly-url]
 
 ---
 
@@ -248,3 +249,5 @@ Expected response:
 [Docker-Compose-url]: https://docs.docker.com/compose/
 [Spring-Security]: https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white
 [Spring-Security-url]: https://spring.io/projects/spring-security
+[Redocly]: https://img.shields.io/badge/Redocly-API%20Docs-FF4D5A?style=for-the-badge&logo=redocly&logoColor=white
+[Redocly-url]: https://redocly.com/
