@@ -59,7 +59,7 @@ jobs:
         run: ./gradlew clean generateOpenApiDocs --no-daemon
 
       - name: Lint OpenAPI
-        run: npx @redocly/cli@latestlint build/openapi.json --config redocly.yaml
+        run: npx @redocly/cli@latest build/openapi.json --config redocly.yaml
 
       - name: Generate ReDoc HTML
         run: |
