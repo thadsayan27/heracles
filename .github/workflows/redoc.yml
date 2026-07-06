@@ -1,14 +1,6 @@
 name: ReDoc
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'src/**'
-      - 'build.gradle.kts'
-      - 'settings.gradle.kts'
-      - 'redocly.yaml'
-      - '.github/workflows/redoc.yml'
   workflow_dispatch:
 
 permissions:
@@ -46,7 +38,6 @@ jobs:
       SPRING_DATASOURCE_PASSWORD: app
       JWT_SECRET_KEY: YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=
       JWT_REFRESH_SECRET_KEY: YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWE=
-      REDOCLY_CLI_VERSION: 2.37.0
 
     steps:
       - name: Checkout
@@ -68,17 +59,17 @@ jobs:
         run: ./gradlew clean generateOpenApiDocs --no-daemon
 
       - name: Lint OpenAPI
-        run: npx @redocly/cli@${REDOCLY_CLI_VERSION} lint build/openapi.json --config redocly.yaml
+        run: npx @redocly/cli@latestlint build/openapi.json --config redocly.yaml
 
       - name: Generate ReDoc HTML
         run: |
           mkdir -p public
           touch public/.nojekyll
 
-          npx @redocly/cli@${REDOCLY_CLI_VERSION} build-docs build/openapi.json \
-            --config redocly.yaml \
-            --title "heracles API Documentation" \
-            --output public/index.html
+          npx @redocly/cli@latest build-docs build/openapi.json \
+          --config redocly.yaml \
+          --title "heracles API Documentation" \
+          --output public/index.html
 
       - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
