@@ -1,27 +1,25 @@
 package com.thadsayan.heracles.security.auth;
 
-import com.thadsayan.heracles.security.dto.LoginRequest;
-import com.thadsayan.heracles.security.dto.AuthResponse;
-import com.thadsayan.heracles.security.dto.RefreshRequest;
-import com.thadsayan.heracles.security.dto.SignUpRequest;
+import com.thadsayan.heracles.security.dto.*;
 import com.thadsayan.heracles.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.Duration;
 
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @SecurityRequirements
-@Tag(name = "Authentication", description = " User registration, login and token refresh")
+@Tag(name = "Authentication", description = "User registration, login and token refresh")
 public class AuthController {
 
     private final AuthenticationService authenticationService;
@@ -32,11 +30,23 @@ public class AuthController {
             description = "Authenticates a user and returns an access token and refresh token."
     )
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
-        AuthResponse authResponse = authenticationService.generateTokens(
+    public ResponseEntity<AuthResponse> login(
+            @Valid @RequestBody LoginRequest loginRequest,
+            HttpServletResponse response) {
+        AccessTokens accessTokens = authenticationService.generateTokens(
                 loginRequest
         );
-        return ResponseEntity.ok(authResponse);
+
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", accessTokens.getRefreshToken())
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Lax")
+                .path("/api/auth/refresh")
+                .maxAge(Duration.ofMillis(accessTokens.getExpiresIn()))
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        return ResponseEntity.ok(new AuthResponse(accessTokens.getAccessToken()));
     }
 
     @Operation(
@@ -44,8 +54,12 @@ public class AuthController {
             description = "Registers a new user."
     )
     @PostMapping("/signup")
-    public ResponseEntity<HttpStatus> signup(@Valid @RequestBody SignUpRequest signUpRequest) {
-        return userService.registerUser(signUpRequest);
+    public ResponseEntity<AuthResponse> signup(
+            @Valid @RequestBody SignUpRequest signUpRequest,
+            HttpServletResponse response) {
+        userService.registerUser(signUpRequest);
+
+        return login(new LoginRequest(signUpRequest.getUsername(), signUpRequest.getPassword()), response);
     }
 
     @Operation(
@@ -53,10 +67,22 @@ public class AuthController {
             description = "Refreshes the access token using a valid refresh token."
     )
     @PostMapping("/refresh")
-    public ResponseEntity<AuthResponse> refreshToken(@RequestBody RefreshRequest refreshRequest) {
-        AuthResponse authResponse = authenticationService.refreshTokens(
-                refreshRequest.getRefreshToken()
+    public ResponseEntity<AuthResponse> refreshToken(
+            @CookieValue("refreshToken") String refreshToken,
+            HttpServletResponse response) {
+        AccessTokens accessTokens = authenticationService.refreshTokens(
+                refreshToken
         );
-        return ResponseEntity.ok(authResponse);
+
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", accessTokens.getRefreshToken())
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Lax")
+                .path("/api/auth/refresh")
+                .maxAge(Duration.ofMillis(accessTokens.getExpiresIn()))
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        return ResponseEntity.ok(new AuthResponse(accessTokens.getAccessToken()));
     }
 }

@@ -1,6 +1,5 @@
 package com.thadsayan.heracles.security.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RefreshRequest {
-    @NotBlank
+public class AccessTokens {
+    private String accessToken;
+    private long expiresIn;
     private String refreshToken;
+    private long refreshExpiresIn;
 }

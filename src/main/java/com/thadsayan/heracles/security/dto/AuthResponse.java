@@ -1,5 +1,6 @@
 package com.thadsayan.heracles.security.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AuthResponse {
     private String accessToken;
-    private long expiresIn;
-    private String refreshToken;
-    private long refreshExpiresIn;
 }

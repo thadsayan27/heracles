@@ -3,7 +3,7 @@ package com.thadsayan.heracles.security.auth;
 import com.thadsayan.heracles.refreshToken.model.RefreshToken;
 import com.thadsayan.heracles.refreshToken.service.RefreshTokenService;
 import com.thadsayan.heracles.security.user.UserPrincipal;
-import com.thadsayan.heracles.security.dto.AuthResponse;
+import com.thadsayan.heracles.security.dto.AccessTokens;
 import com.thadsayan.heracles.security.dto.LoginRequest;
 import com.thadsayan.heracles.security.user.UserPrincipalService;
 import io.jsonwebtoken.Claims;
@@ -62,7 +62,7 @@ public class AuthenticationService {
         return (UserDetails) authentication.getPrincipal();
     }
 
-    public AuthResponse generateTokens(LoginRequest loginRequest){
+    public AccessTokens generateTokens(LoginRequest loginRequest){
         UserPrincipal user = (UserPrincipal) authenticate(
                 loginRequest.getUsername(),
                 loginRequest.getPassword()
@@ -73,7 +73,7 @@ public class AuthenticationService {
                 refreshTokenService.createNewRefreshToken(user.getId())
         );
 
-        return AuthResponse.builder()
+        return AccessTokens.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .expiresIn(accessJwtExpiration)
@@ -81,7 +81,7 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthResponse refreshTokens(String token) {
+    public AccessTokens refreshTokens(String token) {
         Claims claims = extractClaims(token, refreshSigningKey);
 
         if(!"refresh".equals(claims.get("type", String.class)))
@@ -102,7 +102,7 @@ public class AuthenticationService {
         String newAccessToken = generateAccessToken(user.getId());
         String newRefreshToken = generateRefreshToken(refreshToken);
 
-        return AuthResponse.builder()
+        return AccessTokens.builder()
                 .accessToken(newAccessToken)
                 .refreshToken(newRefreshToken)
                 .expiresIn(accessJwtExpiration)
