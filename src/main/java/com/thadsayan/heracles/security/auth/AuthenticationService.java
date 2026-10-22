@@ -121,6 +121,19 @@ public class AuthenticationService {
         );
     }
 
+    public void logout(String token) {
+        try {
+            Claims claims = extractClaims(token, refreshSigningKey);
+
+            if (!"refresh".equals(claims.get("type", String.class)) || claims.getId() == null)
+                return;
+
+            refreshTokenService.revokeFamilyByJti(UUID.fromString(claims.getId()));
+        } catch (JwtException | IllegalArgumentException ex) {
+            // Ignore invalid token
+        }
+    }
+
     private String generateAccessToken(UUID userId) {
         Instant now = Instant.now();
         return Jwts.builder()

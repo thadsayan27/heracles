@@ -58,6 +58,12 @@ public class RefreshTokenService {
         throw new JwtException("Invalid refresh token");
     }
 
+    @Transactional
+    public void revokeFamilyByJti(UUID jti) {
+        refreshTokenRepository.findByJti(jti)
+                .ifPresent(token -> refreshTokenRepository.revokeByFamilyId(token.getFamilyId()));
+    }
+
     private RefreshToken issueNewRefreshToken(RefreshToken oldToken) {
         UUID newJti = UUID.randomUUID();
         Instant now = Instant.now();

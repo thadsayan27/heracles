@@ -37,13 +37,7 @@ public class AuthController {
                 loginRequest
         );
 
-        ResponseCookie cookie = ResponseCookie.from("refreshToken", accessTokens.getRefreshToken())
-                .httpOnly(true)
-                .secure(true)
-                .sameSite("Lax")
-                .path("/api/auth/refresh")
-                .maxAge(Duration.ofMillis(accessTokens.getExpiresIn()))
-                .build();
+        ResponseCookie cookie = refreshCookie(accessTokens.getRefreshToken(), Duration.ofMillis(accessTokens.getRefreshExpiresIn()));
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         return ResponseEntity.ok(new AuthResponse(accessTokens.getAccessToken()));
@@ -74,15 +68,33 @@ public class AuthController {
                 refreshToken
         );
 
-        ResponseCookie cookie = ResponseCookie.from("refreshToken", accessTokens.getRefreshToken())
-                .httpOnly(true)
-                .secure(true)
-                .sameSite("Lax")
-                .path("/api/auth/refresh")
-                .maxAge(Duration.ofMillis(accessTokens.getExpiresIn()))
-                .build();
+        ResponseCookie cookie = refreshCookie(accessTokens.getRefreshToken(), Duration.ofMillis(accessTokens.getRefreshExpiresIn()));
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         return ResponseEntity.ok(new AuthResponse(accessTokens.getAccessToken()));
+    }
+
+    @Operation(
+            summary = "Logout",
+            description = "Revokes the refresh token family and clears the refresh token cookie."
+    )
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(
+            @CookieValue(name = "refreshToken", required = false) String refreshToken,
+            HttpServletResponse response) {
+        authenticationService.logout(refreshToken);
+
+        response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie("", Duration.ZERO).toString());
+        return ResponseEntity.noContent().build();
+    }
+
+    private ResponseCookie refreshCookie(String value, Duration maxAge) {
+        return ResponseCookie.from("refreshToken", value)
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Lax")
+                .path("/api/auth")
+                .maxAge(maxAge)
+                .build();
     }
 }
