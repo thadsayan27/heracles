@@ -1,5 +1,6 @@
 package com.thadsayan.heracles.exercise.dto;
 
+import com.thadsayan.heracles.exercise.enums.ExerciseType;
 import com.thadsayan.heracles.exercise.enums.MuscleGroup;
 import lombok.*;
 
@@ -12,4 +13,5 @@ public class ExerciseDTO {
     private UUID id;
     private String name;
     private MuscleGroup primaryMuscleGroup;
+    private ExerciseType exerciseType;
 }
