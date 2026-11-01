@@ -26,9 +26,9 @@ public class AuthController {
 
     private final AuthenticationService authenticationService;
     private final UserService userService;
-    @Value("${COOKIE_SECURE}")
+    @Value("${heracles.jwt.cookie-secure}")
     private boolean cookieSecure;
-    @Value("${COOKIE_SAME_SITE}")
+    @Value("${heracles.jwt.cookie-same-site}")
     private String cookieSameSite;
 
     @Operation(
