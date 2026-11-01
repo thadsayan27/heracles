@@ -8,7 +8,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Duration;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 @SecurityRequirements
 @Tag(name = "Authentication", description = "User registration, login and token refresh")
@@ -24,6 +26,10 @@ public class AuthController {
 
     private final AuthenticationService authenticationService;
     private final UserService userService;
+    @Value("${COOKIE_SECURE}")
+    private boolean cookieSecure;
+    @Value("${COOKIE_SAME_SITE}")
+    private String cookieSameSite;
 
     @Operation(
             summary = "Login",
@@ -91,8 +97,8 @@ public class AuthController {
     private ResponseCookie refreshCookie(String value, Duration maxAge) {
         return ResponseCookie.from("refreshToken", value)
                 .httpOnly(true)
-                .secure(true)
-                .sameSite("Lax")
+                .secure(cookieSecure)
+                .sameSite(cookieSameSite)
                 .path("/api/auth")
                 .maxAge(maxAge)
                 .build();

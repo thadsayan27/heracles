@@ -26,3 +26,5 @@ heracles:
     refresh-secret: ${JWT_REFRESH_SECRET_KEY} #base64
     expiration-ms: 1800000 # 0.5h
     refresh-expiration-ms: 172800000 # 48h
+    cookie-secure: ${COOKIE_SECURE:false}
+    cookie-same-site: ${COOKIE_SAME_SITE:lax}
